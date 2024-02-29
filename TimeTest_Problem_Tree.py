@@ -1,4 +1,5 @@
 
+from collections import deque
 import time
 import random
 
@@ -12,19 +13,20 @@ class compare:
         return
 
 def list_to_treenode(arr):
-    if not arr: return None
+    if not arr:
+        return None
     root = TreeNode(arr[0])
-    queue = [root]
+    queue = deque([root])
     k = 1
     while k < len(arr):
-        current_node = queue.pop(0)
-        if arr[k] is not None:
-            current_node.left = TreeNode(arr[k])
-            queue.append(current_node.left)
+        currnode = queue.popleft()
+        if arr[k]:
+            currnode.left = TreeNode(arr[k])
+            queue.append(currnode.left)
         k += 1
-        if k < len(arr) and arr[k] is not None:
-            current_node.right = TreeNode(arr[k])
-            queue.append(current_node.right)
+        if k < len(arr) and arr[k]:
+            currnode.right = TreeNode(arr[k])
+            queue.append(currnode.right)
         k += 1
     return root
 
